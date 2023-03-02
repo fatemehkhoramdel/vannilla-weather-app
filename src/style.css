@@ -5,7 +5,7 @@ body {
 .weather-app {
   margin-bottom: 44px;
   margin-top: 44px;
-  max-width: 652px;
+  max-width: 750px;
   padding: 32px;
   border: 1px solid rgb(231, 230, 230);
   border-radius: 10px;
@@ -26,4 +26,27 @@ body {
   color: #70757a;
   list-style-type: none;
   font-size: 16px;
+}
+.overview {
+  margin-bottom: 20px;
+}
+.wether-temp img {
+  margin-right: 16px;
+  width: 60px;
+  height: 64px;
+  float: left;
+}
+.wether-temp strong {
+  font-weight: 400;
+  color: #202124;
+  font-size: 48px;
+  line-height: 60px;
+  float: left;
+}
+
+.wether-temp .unite {
+  position: relative;
+  color: #202124;
+  font-size: 16px;
+  line-height: 24px;
 }
