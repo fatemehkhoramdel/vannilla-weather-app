@@ -1,28 +1,19 @@
-body {
-  font-family: arial, sans-serif;
+
+.weather-app{
+  margin-bottom: 44px;
+  margin-top: 44px;
+  max-width: 652px;
+  padding: 32px;
+border: 1px solid rgb(231, 230, 230);
+border-radius: 10px;
 }
 
-.city-style {
-  font-size: 24px;
+h1 {
+  color: rgb(140, 140, 140);
+  display: inline;
+  font-family: Google Sans,arial,sans-serif;
   font-weight: 400;
-  color: #70757a;
-  line-height: 28ppx;
-}
-
-.weather-app {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 30px;
-  border: 1px solid rgb(227, 227, 227);
-  border-radius: 5px;
-}
-ul {
-  margin: 0%;
-  padding: 0%;
-}
-.li-style {
-  list-style-type: none;
-  color: #70757a;
-  padding-bottom: 2px;
-  font-size: 16px;
+  font-size: 48px;
+  letter-spacing: normal;
+  line-height: 56px;
 }
