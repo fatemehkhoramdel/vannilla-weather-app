@@ -1,6 +1,3 @@
-let apiKey = "a2d5c141caa760021e618a903bcc320b";
-let city = "New York";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
@@ -32,8 +29,8 @@ function displayTemperature(response) {
   let windElement = document.querySelector("#Wind");
   let dateElement = document.querySelector("#dayandtime");
   let iconElement = document.querySelector("#icon");
-
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  celsiusTempture = Math.round(response.data.main.temp);
+  temperatureElement.innerHTML = celsiusTempture;
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
@@ -46,4 +43,45 @@ function displayTemperature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
-axios.get(apiUrl).then(displayTemperature);
+function search(city) {
+  let apiKey = "a2d5c141caa760021e618a903bcc320b";
+
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+function handelElement(event) {
+  event.preventDefault();
+  let cityinputElement = document.querySelector("#query");
+  search(cityinputElement.value);
+}
+
+function displayFahrenheit(event) {
+  event.preventDefault();
+  // remove active class from the celsius
+  celsiusElement.classList.remove("active");
+  // i wanna f be active class once i click on so add this class here
+  fahrenheitElement.classList.add("active");
+  let fahrenheitTemperature = document.querySelector("#temperature");
+  fahrenheitTemperature.innerHTML = Math.round((celsiusTempture * 9) / 5 + 32);
+}
+
+function displaycelsiusTemprature(event) {
+  event.preventDefault();
+  // remove active class frome fehrenhiet
+  fahrenheitElement.classList.remove("active");
+  // add active class to celsius
+  celsiusElement.classList.add("active");
+  let celsiusElementTemp = document.querySelector("#temperature");
+  celsiusElementTemp.innerHTML = celsiusTempture;
+}
+
+let celsiusTempture;
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handelElement);
+let fahrenheitElement = document.querySelector("#fahrenheit");
+fahrenheitElement.addEventListener("click", displayFahrenheit);
+let celsiusElement = document.querySelector("#celsius");
+celsiusElement.addEventListener("click", displaycelsiusTemprature);
+
+search("New york");

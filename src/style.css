@@ -53,3 +53,11 @@ li:first-letter {
   font-size: 16px;
   line-height: 24px;
 }
+
+.wether-temp .active {
+  color: #202124;
+  cursor: default;
+}
+.wether-temp .underline {
+  text-decoration: none;
+}
