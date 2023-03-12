@@ -61,3 +61,24 @@ li:first-letter {
 .wether-temp .underline {
   text-decoration: none;
 }
+
+.weather-forcast{
+  margin-top: 20px;
+  text-align: center; 
+}
+.weather-forcast-day{
+  color: #70757a;
+  font-size: 16px;
+  font-weight: normal;
+}
+.forcast-max{
+  color: #636e72;
+  font-size: 18px;
+font-weight: 500;
+}
+.forcast-min{
+  color:#b2bec3;
+  font-size: 18px;
+font-weight: 500;
+}
+
