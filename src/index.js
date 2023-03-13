@@ -29,6 +29,8 @@ function displayTemperature(response) {
   let windElement = document.querySelector("#Wind");
   let dateElement = document.querySelector("#dayandtime");
   let iconElement = document.querySelector("#icon");
+
+  displayforcast();
   celsiusTempture = Math.round(response.data.main.temp);
   temperatureElement.innerHTML = celsiusTempture;
   cityElement.innerHTML = response.data.name;
@@ -74,6 +76,36 @@ function displaycelsiusTemprature(event) {
   celsiusElement.classList.add("active");
   let celsiusElementTemp = document.querySelector("#temperature");
   celsiusElementTemp.innerHTML = celsiusTempture;
+}
+
+function displayforcast(){
+  let forcastElement = document.querySelector("#forcast");
+  let forcastHtml = `<div class="row">`;
+  let days = ["Saturday", "Monday", "Tuesday",];
+
+  days.forEach(function (day){
+    forcastHtml = forcastHtml + `
+    <div class="col-2">
+      <div class="weather-forcast-day" id="forcast-day">
+        Sun
+      </div>
+      <div class="forcast-img">
+        <img src="https://openweathermap.org/img/wn/04n@2x.png" alt="clear sky" id="icon" width="50px">
+      </div>
+      <div class="weather-forcast-temperature">
+        <span class="forcast-max" id="max-temp">
+          12°
+        </span>
+        <span class="forcast-min" id="min-temp">
+          8°
+        </span>
+      </div>
+    </div>
+    
+  `;
+  });
+  forcastHtml = forcastHtml + `</div>`;
+  forcastElement.innerHTML = forcastHtml;
 }
 
 let celsiusTempture;
