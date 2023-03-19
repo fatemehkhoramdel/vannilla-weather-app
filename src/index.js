@@ -20,11 +20,11 @@ function formatDate(timestamp) {
   ];
   return `${days[day]}  ${hours}:${minutes}`;
 }
-function getCoordinatore(coordinatore){
-  let apiKey = "a2d5c141caa760021e618a903bcc320b";
 
-  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinatore.lat}&lon=${coordinatore.lon}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayforcast);
+function getForcast(coordinate) {
+  console.log(coordinate);
+  let apiKey = "a2d5c141caa760021e618a903bcc320b";
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinate.lat}&lon=${coordinate.lon}&appid=${apiKey}&units=metric`;
   console.log(apiUrl);
 }
 function displayTemperature(response) {
@@ -36,7 +36,6 @@ function displayTemperature(response) {
   let dateElement = document.querySelector("#dayandtime");
   let iconElement = document.querySelector("#icon");
 
- getCoordinatore(response.data.coord);
   celsiusTempture = Math.round(response.data.main.temp);
   temperatureElement.innerHTML = celsiusTempture;
   cityElement.innerHTML = response.data.name;
@@ -49,6 +48,7 @@ function displayTemperature(response) {
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+  getForcast(response.data.coord);
 }
 
 function search(city) {
@@ -56,8 +56,6 @@ function search(city) {
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
-
-
 }
 
 function handelElement(event) {
@@ -86,14 +84,16 @@ function displaycelsiusTemprature(event) {
   celsiusElementTemp.innerHTML = celsiusTempture;
 }
 
-function displayforcast(response){
+function displayforcast(response) {
   console.log(response);
   let forcastElement = document.querySelector("#forcast");
   let forcastHtml = `<div class="row">`;
-  let days = ["Sat", "Mon", "Tue",];
+  let days = ["Sat", "Mon", "Tue"];
 
-  days.forEach(function (day){
-    forcastHtml = forcastHtml + `
+  days.forEach(function (day) {
+    forcastHtml =
+      forcastHtml +
+      `
     <div class="col-2">
       <div class="weather-forcast-day" id="forcast-day">
         ${day}
