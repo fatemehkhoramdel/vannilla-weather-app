@@ -21,12 +21,12 @@ function formatDate(timestamp) {
   return `${days[day]}  ${hours}:${minutes}`;
 }
 
-function getForcast(coordinate) {
-  console.log(coordinate);
-  let apiKey = "a2d5c141caa760021e618a903bcc320b";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinate.lat}&lon=${coordinate.lon}&appid=${apiKey}&units=metric`;
+function getForcast(coordinates) {
+  let apiKey = "2ff29bed3181c3526c35cc5408037f85";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForcast);
 }
+
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let descriptionElement = document.querySelector("#description");
@@ -85,28 +85,30 @@ function displaycelsiusTemprature(event) {
 }
 
 function displayForcast(response) {
-  console.log(response);
+  let days = response.data.daily;
+
   let forcastElement = document.querySelector("#forcast");
   let forcastHtml = `<div class="row">`;
-  let days = ["Sat", "Mon", "Tue"];
-
+  console.log(days);
   days.forEach(function (day) {
     forcastHtml =
       forcastHtml +
       `
     <div class="col-2">
       <div class="weather-forcast-day" id="forcast-day">
-        ${day}
+        ${day.dt}
       </div>
       <div class="forcast-img">
-        <img src="https://openweathermap.org/img/wn/04n@2x.png" alt="clear sky" id="icon" width="50px">
+        <img src="https://openweathermap.org/img/wn/${
+          day.weather[0].icon
+        }@2x.png" alt="clear sky" id="icon" width="50px">
       </div>
       <div class="weather-forcast-temperature">
         <span class="forcast-max" id="max-temp">
-          12°
+          ${Math.round(day.temp.max)}°
         </span>
         <span class="forcast-min" id="min-temp">
-          8°
+          ${Math.round(day.temp.min)}°
         </span>
       </div>
     </div>
@@ -126,3 +128,4 @@ let celsiusElement = document.querySelector("#celsius");
 celsiusElement.addEventListener("click", displaycelsiusTemprature);
 
 search("New york");
+displayForcast();
