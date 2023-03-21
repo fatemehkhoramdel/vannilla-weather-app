@@ -20,6 +20,13 @@ function formatDate(timestamp) {
   ];
   return `${days[day]}  ${hours}:${minutes}`;
 }
+function getDate(timestamp) {
+  let date = new Date(timestamp);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
 
 function getForcast(coordinates) {
   let apiKey = "2ff29bed3181c3526c35cc5408037f85";
@@ -96,7 +103,7 @@ function displayForcast(response) {
       `
     <div class="col-2">
       <div class="weather-forcast-day" id="forcast-day">
-        ${day.dt}
+        ${getDate(day.dt)}
       </div>
       <div class="forcast-img">
         <img src="https://openweathermap.org/img/wn/${
