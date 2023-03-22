@@ -20,16 +20,18 @@ function formatDate(timestamp) {
   ];
   return `${days[day]}  ${hours}:${minutes}`;
 }
-function getDate(timestamp) {
-  let date = new Date(timestamp);
+
+function formatDay(timestamp) {
+  console.log(timestamp);
+  let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let days = ["Sat", "Mon", "Tue", "Wed", "Thu", "Fri", "Sun"];
 
   return days[day];
 }
 
 function getForcast(coordinates) {
-  let apiKey = "2ff29bed3181c3526c35cc5408037f85";
+  let apiKey = "7784a4cd4aa2e0c25ead7bd96d585b8a";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForcast);
 }
@@ -59,7 +61,7 @@ function displayTemperature(response) {
 }
 
 function search(city) {
-  let apiKey = "a2d5c141caa760021e618a903bcc320b";
+  let apiKey = "7784a4cd4aa2e0c25ead7bd96d585b8a";
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
@@ -92,35 +94,36 @@ function displaycelsiusTemprature(event) {
 }
 
 function displayForcast(response) {
-  let days = response.data.daily;
-
+  let forcast = response.data.daily;
   let forcastElement = document.querySelector("#forcast");
   let forcastHtml = `<div class="row">`;
-  console.log(days);
-  days.forEach(function (day) {
-    forcastHtml =
-      forcastHtml +
-      `
+
+  forcast.forEach(function (forcastDay, index) {
+    if (index < 6) {
+      forcastHtml =
+        forcastHtml +
+        `
     <div class="col-2">
       <div class="weather-forcast-day" id="forcast-day">
-        ${getDate(day.dt)}
+        ${formatDay(forcastDay.dt)} 
       </div>
       <div class="forcast-img">
         <img src="https://openweathermap.org/img/wn/${
-          day.weather[0].icon
+          forcastDay.weather[0].icon
         }@2x.png" alt="clear sky" id="icon" width="50px">
       </div>
       <div class="weather-forcast-temperature">
         <span class="forcast-max" id="max-temp">
-          ${Math.round(day.temp.max)}°
+          ${Math.round(forcastDay.temp.max)}°
         </span>
         <span class="forcast-min" id="min-temp">
-          ${Math.round(day.temp.min)}°
+          ${Math.round(forcastDay.temp.min)}°
         </span>
       </div>
     </div>
     
   `;
+    }
   });
   forcastHtml = forcastHtml + `</div>`;
   forcastElement.innerHTML = forcastHtml;
